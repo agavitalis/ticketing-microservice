@@ -1,0 +1,17 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+   - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: agavitalis/ticketing-auth
+      context: auth
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
